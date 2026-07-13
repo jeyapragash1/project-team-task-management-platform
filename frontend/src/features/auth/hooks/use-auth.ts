@@ -11,7 +11,7 @@ import {
   setAccessToken,
 } from "@/lib/auth/token-storage";
 
-import { login, logout } from "../api/auth.api";
+import { getCurrentUser, login, logout } from "../api/auth.api";
 import type { LoginPayload } from "../types/auth.types";
 
 export function useAuth() {
@@ -22,7 +22,14 @@ export function useAuth() {
     mutationFn: (payload: LoginPayload) => login(payload),
     onSuccess: async (data) => {
       setAccessToken(data.token);
-      queryClient.setQueryData(QUERY_KEYS.authUser, data.user);
+
+      const user = await queryClient.fetchQuery({
+        queryKey: QUERY_KEYS.authUser,
+        queryFn: getCurrentUser,
+      });
+
+      queryClient.setQueryData(QUERY_KEYS.authUser, user);
+      toast.success("Logged in successfully.");
       router.replace(ROUTES.dashboard);
     },
     onError: (error) => {
