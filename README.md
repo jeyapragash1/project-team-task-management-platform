@@ -694,6 +694,6 @@ Built as a production-quality full-stack software engineering project using Lara
 
 ```txt
 Author: Your Name
-GitHub: https://github.com/your-username
-LinkedIn: https://linkedin.com/in/your-profile
+GitHub: https://github.com/jeyapragash1
+LinkedIn: https://lk.linkedin.com/in/jeya-pragash
 ```
