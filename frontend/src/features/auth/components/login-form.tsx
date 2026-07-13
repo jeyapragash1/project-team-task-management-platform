@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { APP_NAME, ROUTES } from "@/constants";
 import { getValidationErrors } from "@/lib/api";
 import { getAccessToken } from "@/lib/auth/token-storage";
+import { cn } from "@/lib/utils";
 
 import { useAuth } from "../hooks/use-auth";
 import { useCurrentUser } from "../hooks/use-current-user";
@@ -118,7 +119,7 @@ export function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+          <div className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs font-medium" htmlFor="email">
                 Email address
@@ -181,15 +182,30 @@ export function LoginForm() {
               </div>
             ) : null}
 
-            <Button className="h-9 w-full" disabled={isLoggingIn} type="submit">
+            <button
+              className={cn(buttonVariants({ size: "lg" }), "h-9 w-full")}
+              disabled={isLoggingIn}
+              type="button"
+              onClick={form.handleSubmit(onSubmit)}
+            >
               {isLoggingIn ? (
                 <Loader2 className="size-4 animate-spin" aria-hidden="true" />
               ) : null}
               {isLoggingIn ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
+            </button>
+          </div>
         </CardContent>
       </Card>
     </section>
   );
 }
+
+
+
+
+
+
+
+
+
+

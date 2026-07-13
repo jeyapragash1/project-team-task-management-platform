@@ -9,6 +9,7 @@
   },
   projects: {
     index: "/projects",
+    members: "/project-members",
   },
   tasks: {
     index: "/tasks",
@@ -17,4 +18,5 @@
     index: "/reports",
   },
   profile: "/profile",
+  settings: "/settings",
 } as const;

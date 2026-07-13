@@ -1,33 +1,48 @@
-﻿"use client";
-
-import Link from "next/link";
+﻿import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronLeft, ChevronRight, FolderKanban } from "lucide-react";
 
 import { sidebarNavigation } from "@/config/navigation";
 import { APP_NAME } from "@/constants";
-import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { cn } from "@/lib/utils";
 
-export function SidebarNav() {
+export function SidebarNav({
+  collapsed,
+  onCollapseChange,
+  onNavigate,
+}: {
+  collapsed: boolean;
+  onCollapseChange?: (collapsed: boolean) => void;
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
-  const { data: user } = useCurrentUser();
-  const permissions = new Set(user?.permissions ?? []);
-
-  const visibleItems = sidebarNavigation.filter((item) => {
-    if (!item.permissions?.length) {
-      return true;
-    }
-
-    return item.permissions.some((permission) => permissions.has(permission));
-  });
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-slate-200 bg-white lg:block dark:border-slate-800 dark:bg-slate-900">
-      <div className="flex h-16 items-center border-b border-slate-200 px-6 dark:border-slate-800">
-        <span className="text-sm font-semibold leading-5">{APP_NAME}</span>
+    <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
+      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-3">
+        <div className="flex size-9 shrink-0 items-center justify-center border border-sidebar-border bg-background text-foreground">
+          <FolderKanban className="size-4" aria-hidden="true" />
+        </div>
+        {!collapsed ? (
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-semibold leading-5">{APP_NAME}</p>
+            <p className="truncate text-[11px] text-muted-foreground">Enterprise workspace</p>
+          </div>
+        ) : null}
+        {onCollapseChange ? (
+          <button
+            type="button"
+            className="hidden size-8 shrink-0 items-center justify-center border border-sidebar-border text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground lg:inline-flex"
+            onClick={() => onCollapseChange(!collapsed)}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {collapsed ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
+          </button>
+        ) : null}
       </div>
-      <nav className="space-y-1 px-3 py-4">
-        {visibleItems.map((item) => {
+
+      <nav className="flex-1 space-y-1 overflow-y-auto px-2 py-3">
+        {sidebarNavigation.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -35,19 +50,22 @@ export function SidebarNav() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
+              title={collapsed ? item.title : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "group flex h-9 items-center gap-3 border border-transparent px-2 text-xs font-medium transition-colors",
+                collapsed ? "justify-center" : "justify-start",
                 active
-                  ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
+                  ? "border-sidebar-border bg-sidebar-primary text-sidebar-primary-foreground"
+                  : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
               )}
             >
-              <Icon className="h-4 w-4" aria-hidden="true" />
-              {item.title}
+              <Icon className="size-4 shrink-0" aria-hidden="true" />
+              {!collapsed ? <span className="truncate">{item.title}</span> : null}
             </Link>
           );
         })}
       </nav>
-    </aside>
+    </div>
   );
 }
