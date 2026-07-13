@@ -13,8 +13,9 @@ class AuthService
 {
     /**
      * @param array{email: string, password: string, remember?: bool} $credentials
+     * @return array{user: User, token: string}
      */
-    public function login(array $credentials, Request $request): User
+    public function login(array $credentials, Request $request): array
     {
         $user = User::query()
             ->where('email', $credentials['email'])
@@ -38,7 +39,10 @@ class AuthService
             $request->session()->regenerate();
         }
 
-        return $user;
+        return [
+            'user' => $user->loadMissing('roles', 'permissions'),
+            'token' => $user->createToken('api-token')->plainTextToken,
+        ];
     }
 
     public function logout(Request $request): void

@@ -20,9 +20,12 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->authService->login($request->validated(), $request);
+        $authenticated = $this->authService->login($request->validated(), $request);
 
-        return ApiResponse::success('Logged in successfully.', new UserResource($user));
+        return ApiResponse::success('Logged in successfully.', [
+            'user' => new UserResource($authenticated['user']),
+            'token' => $authenticated['token'],
+        ]);
     }
 
     public function logout(Request $request): JsonResponse

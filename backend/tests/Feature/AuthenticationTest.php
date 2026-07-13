@@ -6,25 +6,34 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticationTest extends ApiFeatureTestCase
 {
-    public function test_active_user_can_login_and_fetch_current_user(): void
+    public function test_active_user_can_login_receive_token_and_fetch_current_user_with_bearer_token(): void
     {
         $user = $this->createUserWithRole('Administrator', [
-            'email' => 'authadmintest@gmail.com',
+            'email' => 'admin@example.com',
             'password' => Hash::make($this->password),
         ]);
 
-        $this->postJson('/api/v1/auth/login', [
+        $response = $this->postJson('/api/v1/auth/login', [
             'email' => $user->email,
             'password' => $this->password,
         ])->assertOk()
             ->assertJsonPath('success', true)
-            ->assertJsonPath('data.email', $user->email);
+            ->assertJsonPath('data.user.email', $user->email)
+            ->assertJsonStructure([
+                'data' => [
+                    'user' => ['id', 'name', 'email'],
+                    'token',
+                ],
+            ]);
 
-        $this->actingAsRole('Administrator');
+        $token = $response->json('data.token');
+        $this->assertNotEmpty($token);
 
-        $this->getJson('/api/v1/auth/user')
+        $this->withToken($token)
+            ->getJson('/api/v1/auth/user')
             ->assertOk()
-            ->assertJsonPath('success', true);
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.email', $user->email);
     }
 
     public function test_inactive_user_cannot_login(): void
