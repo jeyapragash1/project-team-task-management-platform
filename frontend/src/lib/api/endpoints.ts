@@ -11,6 +11,7 @@
   roles: "/roles",
   permissions: "/permissions",
   projects: "/projects",
+  projectMembers: (projectId: number) => `/projects/${projectId}/members`,
   tasks: "/tasks",
   reports: {
     users: "/reports/users",
@@ -20,3 +21,4 @@
     workload: "/reports/workload",
   },
 } as const;
+

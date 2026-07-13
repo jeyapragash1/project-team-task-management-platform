@@ -16,4 +16,6 @@ export type PermissionPayload = {
 export type ManagedRole = Role & {
   is_protected: boolean;
   permissions?: Permission[];
+  created_at?: string;
+  updated_at?: string;
 };
