@@ -33,7 +33,10 @@ class AuthService
         }
 
         Auth::guard('web')->login($user, $credentials['remember'] ?? false);
-        $request->session()->regenerate();
+
+        if ($request->hasSession()) {
+            $request->session()->regenerate();
+        }
 
         return $user;
     }
@@ -48,8 +51,10 @@ class AuthService
 
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        if ($request->hasSession()) {
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
     }
 
     /**

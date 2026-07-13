@@ -29,7 +29,7 @@ return new class extends Migration
             $table->index('created_by_id');
         });
 
-        DB::statement("ALTER TABLE projects ADD CONSTRAINT projects_status_check CHECK (status IN ('active', 'on_hold', 'completed', 'cancelled'))");
+        DB::statement("ALTER TABLE projects ADD CONSTRAINT projects_status_check CHECK (status IN ('active', 'on_hold', 'completed', 'cancelled', 'archived'))");
         DB::statement('ALTER TABLE projects ADD CONSTRAINT projects_date_order_check CHECK (due_date IS NULL OR start_date IS NULL OR due_date >= start_date)');
     }
 

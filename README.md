@@ -693,7 +693,7 @@ This project is open-sourced under the [MIT License](LICENSE).
 Built as a production-quality full-stack software engineering project using Laravel, Next.js, PostgreSQL, and modern REST API architecture.
 
 ```txt
-Author: Your Name
+Author: Kisho Jeyapragash
 GitHub: https://github.com/jeyapragash1
 LinkedIn: https://lk.linkedin.com/in/jeya-pragash
 ```
