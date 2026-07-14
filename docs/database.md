@@ -22,4 +22,5 @@ The database is PostgreSQL and follows Laravel-friendly normalized relational de
 - `projects` validate allowed status values and date ordering.
 - Activity logs use polymorphic subject references for auditable entities.
 
-See `diagrams/database/database-er.md` for the ER diagram.
+See [diagrams/database/database-er.md](../diagrams/database/database-er.md) for the Mermaid ER diagram and [diagrams/database/entity-relationship-diagram.jpg](../diagrams/database/entity-relationship-diagram.jpg) for the exported visual ER diagram.
+

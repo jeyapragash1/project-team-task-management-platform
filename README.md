@@ -88,7 +88,7 @@ flowchart LR
     Backend --> Logs[Audit & Activity Logs]
 ```
 
-See [docs/architecture.md](docs/architecture.md), [diagrams/README.md](diagrams/README.md), and the static [architecture image](assets/architecture.svg).
+See [docs/architecture.md](docs/architecture.md), [diagrams/README.md](diagrams/README.md), the static [architecture image](assets/architecture.svg), the exported [ER diagram](diagrams/database/entity-relationship-diagram.jpg), and the exported [use case diagram](diagrams/use-cases/use-case-diagram.png).
 
 ## Folder Structure
 
@@ -319,6 +319,7 @@ This project is released under the [MIT License](LICENSE).
 - Kisho Jeyapragash
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
 
 
 

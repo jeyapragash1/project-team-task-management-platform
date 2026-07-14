@@ -21,6 +21,7 @@ This folder contains the project documentation for the Project and Team Task Man
 
 ## Related Artifacts
 
-- [Mermaid Diagrams](../diagrams/README.md)
+- [Diagrams](../diagrams/README.md)
 - [Postman Collection](../postman/Project-Team-Task-Management.postman_collection.json)
 - [Postman Local Environment](../postman/Project-Team-Task-Management-Local.postman_environment.json)
+
