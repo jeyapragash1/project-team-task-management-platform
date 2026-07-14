@@ -392,7 +392,7 @@ function getConfirmCopy(action: ConfirmAction | null) {
   if (action.type === "archive") return { title: "Archive Project", description: `Archive ${action.project.name}?`, actionLabel: "Archive" };
   if (action.type === "activate") return { title: "Activate Project", description: `Activate ${action.project.name}?`, actionLabel: "Activate" };
   if (action.type === "restore") return { title: "Restore Project", description: `Restore ${action.project.name}?`, actionLabel: "Restore" };
-  return { title: "Soft Delete Project", description: `Soft delete ${action.project.name}? It can be restored later.`, actionLabel: "Delete" };
+  return { title: "Move Project to Deleted Records", description: `Move ${action.project.name} to deleted records? You can restore it later.`, actionLabel: "Delete" };
 }
 
 function ProjectsTableSkeleton() { return <div className="space-y-2 border border-border p-3">{Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} className="h-10 w-full" />)}</div>; }
@@ -402,4 +402,5 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 function Detail({ label, value }: { label: string; value: string }) { return <div className="border border-border p-3"><p className="text-muted-foreground">{label}</p><p className="mt-1 font-medium whitespace-pre-wrap">{value}</p></div>; }
 function NativeSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: Array<{ label: string; value: string }> }) { return <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} className="h-8 w-full border border-input bg-background px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={`${label}-${option.value}`} value={option.value}>{option.label}</option>)}</select>; }
 function IconButton({ label, onClick, icon: Icon, destructive = false }: { label: string; onClick: () => void; icon: typeof Eye; destructive?: boolean }) { return <Button type="button" variant={destructive ? "destructive" : "ghost"} size="icon-sm" onClick={onClick} aria-label={label} title={label}><Icon className="size-4" /></Button>; }
+
 

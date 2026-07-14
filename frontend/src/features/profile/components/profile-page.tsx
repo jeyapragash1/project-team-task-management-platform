@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, ShieldCheck, UserRound } from "lucide-react";
+import { CheckCircle2, Mail, ShieldCheck, UserRound } from "lucide-react";
 import { useEffect } from "react";
 import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
@@ -60,7 +60,7 @@ export function ProfilePage() {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-          Review your account information, update your profile, and change your password.
+          Manage your account details, contact information, and password from one secure place.
         </p>
       </header>
 
@@ -88,11 +88,11 @@ function ProfileSummary({ user }: { user: User }) {
     <Card>
       <CardHeader>
         <CardTitle>Account Summary</CardTitle>
-        <CardDescription>Authenticated user profile from Laravel Sanctum.</CardDescription>
+        <CardDescription>Your workspace identity and account access details.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="flex items-center gap-4">
-          <Avatar size="lg" className="size-14">
+          <Avatar size="lg" className="size-16 border border-border shadow-sm">
             <AvatarFallback className="text-base font-semibold">{initials(user.name)}</AvatarFallback>
           </Avatar>
           <div className="min-w-0">
@@ -104,15 +104,15 @@ function ProfileSummary({ user }: { user: User }) {
         <div className="space-y-3 text-xs">
           <SummaryRow icon={UserRound} label="Name" value={user.name} />
           <SummaryRow icon={Mail} label="Email" value={user.email} />
-          <div className="border border-border p-3">
+          <div className="rounded-lg border border-border bg-muted/20 p-3">
             <p className="text-muted-foreground">Role(s)</p>
             <div className="mt-2 flex flex-wrap gap-1">
               {roles.length > 0 ? roles.map((role, index) => <Badge key={`${role}-${index}`} variant="outline">{role}</Badge>) : <span className="text-muted-foreground">No roles assigned</span>}
             </div>
           </div>
-          <div className="border border-border p-3">
+          <div className="rounded-lg border border-border bg-muted/20 p-3">
             <p className="text-muted-foreground">Active Status</p>
-            <Badge className="mt-2" variant={user.is_active ? "secondary" : "destructive"}>{user.is_active ? "Active" : "Inactive"}</Badge>
+            <Badge className="mt-2 gap-1" variant={user.is_active ? "secondary" : "destructive"}>{user.is_active ? <CheckCircle2 className="size-3" /> : null}{user.is_active ? "Active" : "Inactive"}</Badge>
           </div>
         </div>
       </CardContent>
@@ -209,7 +209,7 @@ function ChangePasswordCard({ isSubmitting, onSubmit }: { isSubmitting: boolean;
 
 function SummaryRow({ icon: Icon, label, value }: { icon: typeof ShieldCheck; label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3 border border-border p-3">
+    <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/15 p-3">
       <Icon className="size-4 text-muted-foreground" />
       <div className="min-w-0">
         <p className="text-muted-foreground">{label}</p>
@@ -220,7 +220,7 @@ function SummaryRow({ icon: Icon, label, value }: { icon: typeof ShieldCheck; la
 }
 
 function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
-  return <label className="space-y-1.5 text-xs font-medium"><span>{label}</span>{children}{error ? <p className="text-xs text-destructive">{error}</p> : null}</label>;
+  return <label className="space-y-1.5 text-xs font-medium"><span className="text-foreground">{label}</span>{children}{error ? <p className="text-xs text-destructive">{error}</p> : null}</label>;
 }
 
 function ProfileSkeleton() {
@@ -228,7 +228,9 @@ function ProfileSkeleton() {
 }
 
 function ProfileError({ message, onRetry }: { message: string; onRetry: () => void }) {
-  return <div className="border border-destructive/30 bg-destructive/10 p-4"><p className="text-sm font-medium text-destructive">Unable to load profile</p><p className="mt-1 text-xs text-muted-foreground">{message}</p><Button type="button" variant="outline" className="mt-3" onClick={onRetry}>Retry</Button></div>;
+  return <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4"><p className="text-sm font-medium text-destructive">Unable to load profile</p><p className="mt-1 text-xs text-muted-foreground">{message}</p><Button type="button" variant="outline" className="mt-3" onClick={onRetry}>Retry</Button></div>;
 }
+
+
 
 

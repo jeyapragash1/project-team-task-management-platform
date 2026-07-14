@@ -26,11 +26,11 @@ import { reportFilterSchema, type ReportFilterValues } from "../schemas/report.s
 import type { ReportCardDefinition, ReportChartRow, ReportFilters, ReportResponse, ReportRow, ReportValue } from "../types/report-management.types";
 
 const reportCards: Array<ReportCardDefinition & { icon: LucideIcon }> = [
-  { key: "users", title: "Users Report", description: "User status, role distribution, and assignment counts.", icon: UsersRound },
-  { key: "projects", title: "Projects Report", description: "Project lifecycle, manager distribution, and task counts.", icon: FolderKanban },
-  { key: "tasks", title: "Tasks Report", description: "Task assignment, completion, overdue work, and priorities.", icon: BarChart3 },
-  { key: "projectProgress", title: "Project Progress", description: "Progress, completed work, and overdue tasks by project.", icon: FolderKanban },
-  { key: "workload", title: "Workload", description: "Assigned, completed, and overdue tasks by team member.", icon: BriefcaseBusiness },
+  { key: "users", title: "Users Report", description: "Team status, role coverage, and assignment totals.", icon: UsersRound },
+  { key: "projects", title: "Projects Report", description: "Project health, ownership, and task totals.", icon: FolderKanban },
+  { key: "tasks", title: "Tasks Report", description: "Task ownership, completion, overdue work, and priority mix.", icon: BarChart3 },
+  { key: "projectProgress", title: "Project Progress", description: "Completion and delivery progress by project.", icon: FolderKanban },
+  { key: "workload", title: "Workload", description: "Assigned, completed, and overdue work by team member.", icon: BriefcaseBusiness },
 ];
 
 function titleCase(value: string) {
@@ -114,7 +114,7 @@ export function ReportsDashboardPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Reports</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Review users, projects, tasks, progress, and workload using aggregated Laravel report endpoints.
+            Review team capacity, project progress, task health, and workload trends in one place.
           </p>
         </div>
         <Button type="button" variant="outline" onClick={() => reportsQuery.refetch()} disabled={reportsQuery.isFetching}>
@@ -162,7 +162,7 @@ function ReportCard({ definition, report }: { definition: ReportCardDefinition &
     <Card className={definition.key === "projectProgress" ? "xl:col-span-2" : undefined}>
       <CardHeader>
         <div className="flex items-start gap-3">
-          <div className="flex size-9 items-center justify-center border border-border bg-muted/40"><Icon className="size-4" /></div>
+          <div className="flex size-10 items-center justify-center rounded-md border border-border bg-muted/40 shadow-sm"><Icon className="size-4" /></div>
           <div>
             <CardTitle>{definition.title}</CardTitle>
             <CardDescription>{definition.description}</CardDescription>
@@ -181,7 +181,7 @@ function ReportCard({ definition, report }: { definition: ReportCardDefinition &
 function SummaryGrid({ summary }: { summary: Record<string, number> }) {
   const entries = Object.entries(summary);
   if (entries.length === 0) return <EmptyState label="No summary data" />;
-  return <div className="grid gap-2 sm:grid-cols-2 2xl:grid-cols-3">{entries.map(([key, value]) => <div key={key} className="border border-border p-3"><p className="text-xs text-muted-foreground">{titleCase(key)}</p><p className="mt-1 text-lg font-semibold tracking-tight">{formatReportValue(value)}</p></div>)}</div>;
+  return <div className="grid gap-2 sm:grid-cols-2 2xl:grid-cols-3">{entries.map(([key, value]) => <div key={key} className="rounded-lg border border-border bg-muted/20 p-3"><p className="text-xs text-muted-foreground">{titleCase(key)}</p><p className="mt-1 text-lg font-semibold tracking-tight">{formatReportValue(value)}</p></div>)}</div>;
 }
 
 function ChartsGrid({ charts }: { charts: Record<string, ReportChartRow[]> }) {
@@ -192,19 +192,19 @@ function ChartsGrid({ charts }: { charts: Record<string, ReportChartRow[]> }) {
 
 function ChartBlock({ title, rows }: { title: string; rows: ReportChartRow[] }) {
   const max = Math.max(...rows.map(chartValue), 1);
-  return <div className="space-y-2 border border-border p-3"><p className="text-xs font-medium">{title}</p>{rows.map((row, index) => { const value = chartValue(row); return <div key={`${title}-${index}`} className="space-y-1"><div className="flex items-center justify-between gap-2 text-xs"><span className="truncate text-muted-foreground">{chartLabel(row)}</span><span className="font-medium">{formatReportValue(value)}</span></div><div className="h-2 bg-muted"><div className="h-full bg-foreground" style={{ width: `${Math.min((value / max) * 100, 100)}%` }} /></div></div>; })}</div>;
+  return <div className="space-y-3 rounded-lg border border-border bg-muted/15 p-3"><p className="text-xs font-medium">{title}</p>{rows.map((row, index) => { const value = chartValue(row); return <div key={`${title}-${index}`} className="space-y-1"><div className="flex items-center justify-between gap-2 text-xs"><span className="truncate text-muted-foreground">{chartLabel(row)}</span><span className="font-medium">{formatReportValue(value)}</span></div><div className="h-2 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min((value / max) * 100, 100)}%` }} /></div></div>; })}</div>;
 }
 
 function ReportTable({ rows }: { rows: ReportRow[] }) {
   if (rows.length === 0) return <EmptyState label="No table rows" />;
   const columns = Object.keys(rows[0]).slice(0, 8);
-  return <div className="overflow-hidden border border-border"><Table><TableHeader><TableRow>{columns.map((column) => <TableHead key={column}>{titleCase(column)}</TableHead>)}</TableRow></TableHeader><TableBody>{rows.map((row, index) => <TableRow key={rowKey(row, index)}>{columns.map((column) => <TableCell key={`${rowKey(row, index)}-${column}`}><TableValue column={column} value={row[column]} /></TableCell>)}</TableRow>)}</TableBody></Table></div>;
+  return <div><Table><TableHeader><TableRow>{columns.map((column) => <TableHead key={column}>{titleCase(column)}</TableHead>)}</TableRow></TableHeader><TableBody>{rows.map((row, index) => <TableRow key={rowKey(row, index)}>{columns.map((column) => <TableCell key={`${rowKey(row, index)}-${column}`}><TableValue column={column} value={row[column]} /></TableCell>)}</TableRow>)}</TableBody></Table></div>;
 }
 
 function TableValue({ column, value }: { column: string; value: ReportValue | undefined }) {
   const formatted = formatReportValue(value);
   if (column.includes("status") || column === "priority" || column === "is_active") return <Badge variant={badgeVariant(formatted)}>{formatted}</Badge>;
-  if (column.includes("progress") && typeof value === "number") return <div className="min-w-28 space-y-1"><div className="flex justify-between text-xs"><span>{formatted}%</span></div><div className="h-2 bg-muted"><div className="h-full bg-foreground" style={{ width: `${Math.min(value, 100)}%` }} /></div></div>;
+  if (column.includes("progress") && typeof value === "number") return <div className="min-w-28 space-y-1"><div className="flex justify-between text-xs"><span>{formatted}%</span></div><div className="h-2 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(value, 100)}%` }} /></div></div>;
   return <span>{formatted}</span>;
 }
 
@@ -213,20 +213,22 @@ function ReportsSkeleton() {
 }
 
 function ReportsError({ message, onRetry }: { message: string; onRetry: () => void }) {
-  return <div className="border border-destructive/30 bg-destructive/10 p-4"><p className="text-sm font-medium text-destructive">Unable to load reports</p><p className="mt-1 text-xs text-muted-foreground">{message}</p><Button type="button" variant="outline" className="mt-3" onClick={onRetry}>Retry</Button></div>;
+  return <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4"><p className="text-sm font-medium text-destructive">Unable to load reports</p><p className="mt-1 text-xs text-muted-foreground">{message}</p><Button type="button" variant="outline" className="mt-3" onClick={onRetry}>Retry</Button></div>;
 }
 
 function EmptyState({ label }: { label: string }) {
-  return <div className="border border-dashed border-border bg-muted/20 p-4 text-center text-xs text-muted-foreground">{label}</div>;
+  return <div className="rounded-lg border border-dashed border-border bg-muted/20 p-6 text-center text-xs text-muted-foreground">{label}</div>;
 }
 
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
-  return <label className="space-y-1.5 text-xs font-medium"><span>{label}</span>{children}{error ? <p className="text-xs text-destructive">{error}</p> : null}</label>;
+  return <label className="space-y-1.5 text-xs font-medium"><span className="text-foreground">{label}</span>{children}{error ? <p className="text-xs text-destructive">{error}</p> : null}</label>;
 }
 
 function NativeSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: Array<{ label: string; value: string }> }) {
-  return <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} className="h-8 w-full border border-input bg-background px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={`${label}-${option.value}`} value={option.value}>{option.label}</option>)}</select>;
+  return <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={`${label}-${option.value}`} value={option.value}>{option.label}</option>)}</select>;
 }
+
+
 
 
 

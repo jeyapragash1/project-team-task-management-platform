@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# Frontend Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This frontend is the Next.js application for the Project and Team Task Management Platform. It provides the protected application shell, authentication flow, dashboard, and management interfaces for users, roles, projects, project members, tasks, comments, reports, profile, and settings.
+
+The frontend communicates with the Laravel backend exclusively through REST API requests.
+
+## Folder Structure
+
+```txt
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── (auth)/
+│   │   └── (dashboard)/
+│   ├── components/
+│   │   ├── layouts/
+│   │   ├── navigation/
+│   │   └── ui/
+│   ├── config/
+│   ├── features/
+│   ├── hooks/
+│   ├── lib/
+│   ├── providers/
+│   ├── types/
+│   └── utils/
+├── public/
+├── package.json
+└── next.config.ts
+```
+
+## Feature Architecture
+
+Feature code is grouped by business module under `src/features/`. Each module owns its page composition, API helpers, forms, validation schemas, hooks, and module-specific UI where applicable.
+
+Shared layout, navigation, and base UI components live under `src/components/`. Cross-cutting providers and utilities live under `src/providers/`, `src/lib/`, `src/hooks/`, and `src/utils/`.
+
+## Installation
+
+```bash
+cd frontend
+npm install
+cp .env.example .env
+```
+
+## Environment Setup
+
+Required local values:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000/api/v1
+NEXT_PUBLIC_APP_NAME="Project Team Task Management Platform"
+```
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## API Communication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Axios is used through the shared API client.
+- The Sanctum token is sent with protected requests using `Authorization: Bearer <token>`.
+- TanStack Query manages server state, loading states, refresh behavior, and cache invalidation.
+- React Hook Form and Zod validate client-side form inputs before API submission.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Theme Support
 
-## Deploy on Vercel
+The application supports light, dark, and system themes through the existing `next-themes` integration. User-facing theme preferences are handled in the settings module and persisted locally.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## State Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- TanStack Query: remote server state.
+- Local storage: authentication token and user preferences.
+- React state: component-local UI state such as dialogs, filters, and temporary selections.
+
+## Troubleshooting
+
+- Confirm the backend is running on `http://127.0.0.1:8000`.
+- Confirm `NEXT_PUBLIC_API_BASE_URL` points to `/api/v1`.
+- Clear browser storage if stale tokens cause authorization errors.
+- Run `npm run lint`, `npx tsc --noEmit`, and `npm run build` before submission.
+- If protected pages redirect to login, confirm a valid token is stored after login.

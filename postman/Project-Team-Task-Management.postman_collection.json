@@ -1,8 +1,8 @@
 ﻿{
     "info":  {
                  "_postman_id":  "3e8f8667-13dd-4f1b-9da6-cyphlab-current",
-                 "name":  "CyphLab API - Current Backend",
-                 "description":  "Fresh Postman Collection generated from the current Laravel backend implementation. Login saves Sanctum token using: pm.environment.set(\"token\", response.data.token);",
+                 "name":  "Project Team Task Management API",
+                 "description":  "Postman collection for the Project and Team Task Management Platform Laravel REST API.",
                  "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
              },
     "auth":  {
@@ -7280,4 +7280,3 @@
                  }
              ]
 }
-

@@ -132,7 +132,7 @@ function resetPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Project Members</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Select a project, review its assigned members, and manage membership through the Laravel project member API.
+            Select a project, review assigned members, and keep each project team organized.
           </p>
         </div>
         <div className="flex gap-2">
@@ -494,6 +494,7 @@ function NativeSelect({ label, value, onChange, options }: { label: string; valu
 function IconButton({ label, onClick, icon: Icon, destructive = false }: { label: string; onClick: () => void; icon: LucideIcon; destructive?: boolean }) {
   return <Button type="button" variant={destructive ? "destructive" : "ghost"} size="icon-sm" onClick={onClick} aria-label={label} title={label}><Icon className="size-4" /></Button>;
 }
+
 
 
 

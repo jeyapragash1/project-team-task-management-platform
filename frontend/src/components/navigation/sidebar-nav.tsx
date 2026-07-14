@@ -35,7 +35,7 @@ export function SidebarNav({
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
       <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-3">
-        <div className="flex size-9 shrink-0 items-center justify-center border border-sidebar-border bg-background text-foreground">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-sidebar-border bg-background text-foreground shadow-sm">
           <FolderKanban className="size-4" aria-hidden="true" />
         </div>
         {!collapsed ? (
@@ -47,7 +47,7 @@ export function SidebarNav({
         {onCollapseChange ? (
           <button
             type="button"
-            className="hidden size-8 shrink-0 items-center justify-center border border-sidebar-border text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground lg:inline-flex"
+            className="hidden size-8 shrink-0 items-center justify-center rounded-md border border-sidebar-border text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground lg:inline-flex"
             onClick={() => onCollapseChange(!collapsed)}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
@@ -68,10 +68,10 @@ export function SidebarNav({
               onClick={onNavigate}
               title={collapsed ? item.title : undefined}
               className={cn(
-                "group flex h-9 items-center gap-3 border border-transparent px-2 text-xs font-medium transition-colors focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50",
+                "group relative flex h-10 items-center gap-3 rounded-md border border-transparent px-2.5 text-xs font-medium transition-all duration-200 focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50",
                 collapsed ? "justify-center" : "justify-start",
                 active
-                  ? "border-primary/25 bg-primary/10 text-foreground shadow-sm dark:border-primary/35 dark:bg-primary/20 dark:text-sidebar-foreground"
+                  ? "border-primary/25 bg-primary/10 text-foreground shadow-sm before:absolute before:left-0 before:top-1.5 before:h-7 before:w-1 before:rounded-r-full before:bg-primary dark:border-primary/35 dark:bg-primary/20 dark:text-sidebar-foreground"
                   : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
               )}
             >
@@ -84,3 +84,4 @@ export function SidebarNav({
     </div>
   );
 }
+

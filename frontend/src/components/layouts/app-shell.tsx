@@ -42,13 +42,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         </SheetContent>
       </Sheet>
 
-      <div className={cn("min-h-screen bg-muted/20 transition-[padding] duration-200", collapsed ? "lg:pl-16" : "lg:pl-72")}>
+      <div className={cn("min-h-screen bg-muted/25 transition-[padding] duration-200 dark:bg-background", collapsed ? "lg:pl-16" : "lg:pl-72")}>
         <TopNav onOpenMobileSidebar={() => setMobileOpen(true)} />
-        <main className="px-3 py-5 sm:px-4 sm:py-6 lg:px-6 lg:py-7">
+        <main className="px-4 py-6 sm:px-5 lg:px-8 lg:py-8">
           <PageContainer>{children}</PageContainer>
         </main>
       </div>
     </div>
   );
 }
+
 

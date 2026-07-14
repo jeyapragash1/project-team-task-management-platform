@@ -26,6 +26,8 @@ A production-style project and team task management platform built with a decoup
 - [Running the Project](#running-the-project)
 - [Running Tests](#running-tests)
 - [API Documentation](#api-documentation)
+- [CI/CD](#cicd)
+- [AI Usage](#ai-usage)
 - [Default Administrator Account](#default-administrator-account)
 - [Screenshots](#screenshots)
 - [Future Improvements](#future-improvements)
@@ -224,10 +226,10 @@ http://127.0.0.1:8000/api/v1
 
 Postman files:
 
-- [Postman Collection](postman/CyphLab-API.postman_collection.json)
-- [Postman Local Environment](postman/CyphLab-Local.postman_environment.json)
+- [Postman Collection](postman/Project-Team-Task-Management.postman_collection.json)
+- [Postman Local Environment](postman/Project-Team-Task-Management-Local.postman_environment.json)
 
-Detailed API notes are available in [docs/api.md](docs/api.md).
+Detailed API notes are available in [docs/api.md](docs/api.md). Authentication details are documented in [docs/authentication.md](docs/authentication.md). Deployment and testing notes are available in [docs/deployment.md](docs/deployment.md) and [docs/testing.md](docs/testing.md).
 
 ## Default Administrator Account
 
@@ -262,6 +264,22 @@ Browser screenshot capture was attempted, but the available browser runtime coul
 | Profile | [assets/screenshots/profile.png](assets/screenshots/profile.png) |
 | Settings | [assets/screenshots/settings.png](assets/screenshots/settings.png) |
 
+
+## CI/CD
+
+GitHub Actions verifies backend and frontend quality on pushes and pull requests to `main`.
+
+Workflow file:
+
+```txt
+.github/workflows/ci.yml
+```
+
+The workflow runs backend PHPUnit tests, frontend linting, TypeScript verification, and the frontend production build.
+
+## AI Usage
+
+AI tools were used to assist with requirement analysis, architecture planning, documentation drafting, code scaffolding support, UI polish suggestions, and debugging. Final implementation decisions, testing, verification, and submission preparation were reviewed manually by the developer.
 ## Future Improvements
 
 These are intentionally not required in the current assessment scope:
@@ -283,4 +301,5 @@ This project is released under the [MIT License](LICENSE).
 - Kisho Jeyapragash
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
 

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -165,7 +165,14 @@ a {
   select {
     color-scheme: light dark;
   }
-}
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }}
 
 @layer utilities {
   .ui-scrollbar {
@@ -188,3 +195,4 @@ a {
     background: transparent;
   }
 }
+

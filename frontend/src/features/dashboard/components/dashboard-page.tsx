@@ -74,7 +74,7 @@ export function DashboardPage() {
             <Badge variant="outline">{dashboardQuery.data.role}</Badge>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Monitor projects, tasks, workload, and the latest system activity from your authorized workspace scope.
+            Monitor project progress, team workload, upcoming work, and recent updates from your workspace.
           </p>
         </div>
         <Button
@@ -149,7 +149,7 @@ function SummaryCards({ statistics }: { statistics: DashboardStatistics }) {
         const Icon = item.icon;
 
         return (
-          <Card key={item.label} size="sm">
+          <Card key={item.label} size="sm" className="hover:-translate-y-0.5">
             <CardContent className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs text-muted-foreground">{item.label}</p>
@@ -157,7 +157,7 @@ function SummaryCards({ statistics }: { statistics: DashboardStatistics }) {
                   {formatNumber(item.value)}
                 </p>
               </div>
-              <div className="flex size-9 items-center justify-center border border-border bg-muted/40">
+              <div className="flex size-10 items-center justify-center rounded-md border border-border bg-muted/40 shadow-sm">
                 <Icon className={cn("size-4", item.tone)} aria-hidden="true" />
               </div>
             </CardContent>
@@ -180,7 +180,7 @@ function TaskStatusOverview({
       <Card>
         <CardHeader>
           <CardTitle>Task Status Overview</CardTitle>
-          <CardDescription>No task statuses are available yet.</CardDescription>
+          <CardDescription>Task progress will appear here once work is assigned and updated.</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -190,7 +190,7 @@ function TaskStatusOverview({
     <Card>
       <CardHeader>
         <CardTitle>Task Status Overview</CardTitle>
-        <CardDescription>Distribution of tasks across configured workflow statuses.</CardDescription>
+        <CardDescription>A quick view of how current tasks are moving through the workflow.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {statuses.map((status) => {
@@ -225,19 +225,19 @@ function RecentActivity({ activities }: { activities: DashboardActivity[] }) {
     <Card>
       <CardHeader>
         <CardTitle>Recent Activity</CardTitle>
-        <CardDescription>Latest audited activity visible to your current role.</CardDescription>
+        <CardDescription>Recent workspace updates you have access to view.</CardDescription>
       </CardHeader>
       <CardContent>
         {activities.length === 0 ? (
           <EmptyState
             icon={Activity}
             title="No recent activity"
-            description="Activity will appear here as users manage projects, tasks, and comments."
+            description="New updates will appear here as your team manages projects, tasks, and comments."
           />
         ) : (
-          <ol className="divide-y divide-border border border-border">
+          <ol className="space-y-3">
             {activities.map((activity) => (
-              <li key={activity.id} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-start sm:justify-between">
+              <li key={activity.id} className="flex flex-col gap-3 rounded-lg border border-border bg-muted/20 p-4 transition-colors hover:bg-muted/35 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
                   <p className="text-sm font-medium">
                     {humanizeAction(activity.action)}
@@ -281,12 +281,12 @@ function PersonalSummary({
       <CardHeader>
         <CardTitle>Personal Summary</CardTitle>
         <CardDescription>
-          {userName ? `${userName}'s authorized dashboard scope.` : "Your authorized dashboard scope."}
+          {userName ? `${userName}'s workspace summary.` : "Your current workspace summary."}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-3 sm:grid-cols-2">
         {items.map((item) => (
-          <div key={item.label} className="border border-border bg-muted/30 p-3">
+          <div key={item.label} className="rounded-lg border border-border bg-muted/30 p-4">
             <p className="text-xs text-muted-foreground">{item.label}</p>
             <p className="mt-1 text-sm font-medium">{item.value}</p>
           </div>
@@ -329,7 +329,7 @@ function DashboardError({ message, onRetry }: { message: string; onRetry: () => 
   return (
     <Card>
       <CardContent className="flex flex-col items-start gap-4 p-6">
-        <div className="flex size-10 items-center justify-center border border-destructive/30 bg-destructive/10 text-destructive">
+        <div className="flex size-11 items-center justify-center rounded-lg border border-destructive/30 bg-destructive/10 text-destructive">
           <AlertTriangle className="size-5" aria-hidden="true" />
         </div>
         <div>
@@ -352,7 +352,7 @@ function DashboardEmpty({ onRefresh }: { onRefresh: () => void }) {
         <EmptyState
           icon={ClipboardList}
           title="No dashboard data"
-          description="No dashboard statistics were returned for your account yet."
+          description="Your workspace summary is not available yet. Refresh once work has been added."
         />
         <div className="mt-4">
           <Button type="button" variant="outline" onClick={onRefresh}>
@@ -375,8 +375,8 @@ function EmptyState({
   description: string;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center border border-dashed border-border bg-muted/20 p-8 text-center">
-      <div className="flex size-10 items-center justify-center border border-border bg-background">
+    <div className="flex min-h-44 flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/20 p-8 text-center">
+      <div className="flex size-11 items-center justify-center rounded-lg border border-border bg-background shadow-sm">
         <Icon className="size-5 text-muted-foreground" aria-hidden="true" />
       </div>
       <h2 className="mt-4 text-sm font-medium">{title}</h2>
@@ -394,3 +394,5 @@ function humanizeAction(action: string): string {
 function scopeLabel(scope: string): string {
   return humanizeAction(scope);
 }
+
+

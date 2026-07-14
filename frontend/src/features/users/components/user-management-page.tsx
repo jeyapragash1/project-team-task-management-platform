@@ -610,8 +610,8 @@ function getConfirmCopy(action: ConfirmAction | null) {
 
   if (action.type === "delete") {
     return {
-      title: "Soft delete user",
-      description: `Soft delete ${action.user.name}? The user can be restored later from deleted records.`,
+      title: "Move to deleted records user",
+      description: `Move to deleted records ${action.user.name}? The user can be restored later from deleted records.`,
       actionLabel: "Delete User",
     };
   }
@@ -735,4 +735,5 @@ function IconButton({
     </Button>
   );
 }
+
 

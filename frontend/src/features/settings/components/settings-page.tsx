@@ -114,10 +114,10 @@ export function SettingsPage() {
     () => [
       { label: "Application Name", value: APP_NAME },
       { label: "Version", value: APP_VERSION },
-      { label: "Laravel Version", value: LARAVEL_VERSION },
-      { label: "Next.js Version", value: NEXT_VERSION },
+      { label: "Service Version", value: LARAVEL_VERSION },
+      { label: "Interface Version", value: NEXT_VERSION },
       { label: "Environment", value: environment },
-      { label: "Build Date", value: buildDate },
+      { label: "Build", value: buildDate },
     ],
     [buildDate, environment],
   );
@@ -132,7 +132,7 @@ export function SettingsPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Configure local application preferences, appearance, notification toggles, and environment details.
+            Customize your workspace appearance, notifications, and everyday preferences.
           </p>
         </div>
         <Button type="button" variant="outline" onClick={resetSettings}>
@@ -145,7 +145,7 @@ export function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Appearance</CardTitle>
-            <CardDescription>Theme preference is synced with the existing next-themes provider.</CardDescription>
+            <CardDescription>Choose how the workspace should look on this device.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-2 sm:grid-cols-3">
@@ -153,14 +153,14 @@ export function SettingsPage() {
                 const Icon = option.icon;
                 const active = settings.appearance.theme === option.value;
                 return (
-                  <Button key={option.value} type="button" variant={active ? "default" : "outline"} className="justify-start" onClick={() => updateTheme(option.value)}>
+                  <Button key={option.value} type="button" variant={active ? "default" : "outline"} className="h-10 justify-start" onClick={() => updateTheme(option.value)}>
                     <Icon className="size-4" />
                     {option.label}
                   </Button>
                 );
               })}
             </div>
-            <div className="border border-border p-3 text-xs">
+            <div className="rounded-lg border border-border bg-muted/20 p-3 text-xs">
               <p className="text-muted-foreground">Current resolved theme</p>
               <Badge className="mt-2" variant="outline">{resolvedTheme ?? theme ?? "system"}</Badge>
             </div>
@@ -170,19 +170,19 @@ export function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Notifications</CardTitle>
-            <CardDescription>These controls are UI-only preferences persisted in this browser.</CardDescription>
+            <CardDescription>Choose which updates you prefer to receive on this device.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <ToggleRow icon={Mail} label="Email notifications" description="Receive account and workflow updates by email." checked={settings.notifications.email} onChange={(checked) => updateSettings((current) => ({ ...current, notifications: { ...current.notifications, email: checked } }))} />
-            <ToggleRow icon={Bell} label="Browser notifications" description="Allow browser-level notifications when future support is enabled." checked={settings.notifications.browser} onChange={(checked) => updateSettings((current) => ({ ...current, notifications: { ...current.notifications, browser: checked } }))} />
-            <ToggleRow icon={MonitorCog} label="Task reminders" description="Keep task reminder preference ready for future notification workflows." checked={settings.notifications.taskReminders} onChange={(checked) => updateSettings((current) => ({ ...current, notifications: { ...current.notifications, taskReminders: checked } }))} />
+            <ToggleRow icon={Bell} label="Browser notifications" description="Receive browser notifications when available." checked={settings.notifications.browser} onChange={(checked) => updateSettings((current) => ({ ...current, notifications: { ...current.notifications, browser: checked } }))} />
+            <ToggleRow icon={MonitorCog} label="Task reminders" description="Keep reminders enabled for assigned work." checked={settings.notifications.taskReminders} onChange={(checked) => updateSettings((current) => ({ ...current, notifications: { ...current.notifications, taskReminders: checked } }))} />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
             <CardTitle>Preferences</CardTitle>
-            <CardDescription>Local defaults for high-volume dashboard and table workflows.</CardDescription>
+            <CardDescription>Set defaults that make daily workspace review faster.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
             <Field label="Items per page">
@@ -200,12 +200,12 @@ export function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>About</CardTitle>
-            <CardDescription>Application and runtime metadata for reviewers and developers.</CardDescription>
+            <CardDescription>Application details for this workspace.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-2">
               {aboutRows.map((row) => (
-                <div key={row.label} className="flex flex-col gap-1 border border-border p-3 text-xs sm:flex-row sm:items-center sm:justify-between">
+                <div key={row.label} className="flex flex-col gap-1 rounded-lg border border-border bg-muted/15 p-3 text-xs sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-muted-foreground">{row.label}</span>
                   <span className="font-medium">{row.value}</span>
                 </div>
@@ -233,15 +233,17 @@ function ToggleRow({ icon: Icon, label, description, checked, onChange }: { icon
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="space-y-1.5 text-xs font-medium"><span>{label}</span>{children}</label>;
+  return <label className="space-y-1.5 text-xs font-medium"><span className="text-foreground">{label}</span>{children}</label>;
 }
 
 function NativeSelect({ value, onChange, options }: { value: string; onChange: (value: string) => void; options: Array<{ label: string; value: string }> }) {
-  return <select value={value} onChange={(event) => onChange(event.target.value)} className="h-8 w-full border border-input bg-background px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>;
+  return <select value={value} onChange={(event) => onChange(event.target.value)} className="h-9 w-full rounded-md border border-input bg-background px-3 text-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>;
 }
 
 function SettingsSkeleton() {
   return <div className="space-y-6"><Skeleton className="h-20 w-full" /><div className="grid gap-6 xl:grid-cols-2">{Array.from({ length: 4 }).map((_, index) => <Card key={index}><CardHeader><Skeleton className="h-5 w-40" /><Skeleton className="h-4 w-64" /></CardHeader><CardContent className="space-y-3"><Skeleton className="h-10 w-full" /><Skeleton className="h-10 w-full" /><Skeleton className="h-10 w-full" /></CardContent></Card>)}</div></div>;
 }
+
+
 
 

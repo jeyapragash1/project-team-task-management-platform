@@ -162,7 +162,7 @@ export function TaskManagementPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Tasks</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            Manage task lifecycle, assignment, status, priority, due dates, and soft-deleted records through the Laravel Task API.
+            Manage task assignments, statuses, priorities, due dates, and deleted records from one workspace.
           </p>
         </div>
         <div className="flex gap-2">
@@ -375,7 +375,7 @@ function TaskViewDialog({ task, onClose }: { task: ManagedTask | null; onClose: 
 }
 function ConfirmTaskActionDialog({ action, isSubmitting, onClose, onConfirm }: { action: ConfirmAction; isSubmitting: boolean; onClose: () => void; onConfirm: () => Promise<void> }) {
   const isDelete = action?.type === "delete";
-  return <Dialog open={Boolean(action)} onOpenChange={(open) => (!open ? onClose() : undefined)}><DialogContent><DialogHeader><DialogTitle>{isDelete ? "Soft Delete Task" : "Restore Task"}</DialogTitle><DialogDescription>{action ? `${isDelete ? "Soft delete" : "Restore"} ${action.task.title}?` : "Confirm task action."}</DialogDescription></DialogHeader><DialogFooter><Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button><Button type="button" variant={isDelete ? "destructive" : "default"} onClick={onConfirm} disabled={isSubmitting}>{isSubmitting ? "Working..." : isDelete ? "Delete Task" : "Restore Task"}</Button></DialogFooter></DialogContent></Dialog>;
+  return <Dialog open={Boolean(action)} onOpenChange={(open) => (!open ? onClose() : undefined)}><DialogContent><DialogHeader><DialogTitle>{isDelete ? "Move Task to Deleted Records" : "Restore Task"}</DialogTitle><DialogDescription>{action ? `${isDelete ? "Move to deleted records" : "Restore"} ${action.task.title}?` : "Confirm task action."}</DialogDescription></DialogHeader><DialogFooter><Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button><Button type="button" variant={isDelete ? "destructive" : "default"} onClick={onConfirm} disabled={isSubmitting}>{isSubmitting ? "Working..." : isDelete ? "Delete Task" : "Restore Task"}</Button></DialogFooter></DialogContent></Dialog>;
 }
 
 function TasksTableSkeleton() { return <div className="space-y-2 border border-border p-3">{Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} className="h-10 w-full" />)}</div>; }
@@ -385,5 +385,6 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 function Detail({ label, value }: { label: string; value: string }) { return <div className="border border-border p-3"><p className="text-muted-foreground">{label}</p><p className="mt-1 font-medium whitespace-pre-wrap">{value}</p></div>; }
 function NativeSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: Array<{ label: string; value: string }> }) { return <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} className="h-8 w-full border border-input bg-background px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50">{options.map((option) => <option key={`${label}-${option.value}`} value={option.value}>{option.label}</option>)}</select>; }
 function IconButton({ label, onClick, icon: Icon, destructive = false }: { label: string; onClick: () => void; icon: LucideIcon; destructive?: boolean }) { return <Button type="button" variant={destructive ? "destructive" : "ghost"} size="icon-sm" onClick={onClick} aria-label={label} title={label}><Icon className="size-4" /></Button>; }
+
 
 
