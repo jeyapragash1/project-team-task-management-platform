@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, FolderKanban } from "lucide-react";
 
 import { sidebarNavigation } from "@/config/navigation";
 import { APP_NAME } from "@/constants";
+import { useAuthorization } from "@/hooks/use-authorization";
 import { cn } from "@/lib/utils";
 
 export function SidebarNav({
@@ -16,6 +17,20 @@ export function SidebarNav({
   onNavigate?: () => void;
 }) {
   const pathname = usePathname();
+  const { hasAnyPermission, hasAnyRole } = useAuthorization();
+  const visibleNavigation = sidebarNavigation.filter((item) => {
+    const hasPermissionRule = item.permissions && item.permissions.length > 0;
+    const hasRoleRule = item.roles && item.roles.length > 0;
+
+    if (!hasPermissionRule && !hasRoleRule) {
+      return true;
+    }
+
+    return (
+      (hasPermissionRule ? hasAnyPermission(item.permissions ?? []) : false) ||
+      (hasRoleRule ? hasAnyRole(item.roles ?? []) : false)
+    );
+  });
 
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
@@ -42,7 +57,7 @@ export function SidebarNav({
       </div>
 
       <nav className="ui-scrollbar flex-1 space-y-1 overflow-y-auto px-2 py-3">
-        {sidebarNavigation.map((item) => {
+        {visibleNavigation.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -69,6 +84,3 @@ export function SidebarNav({
     </div>
   );
 }
-
-
-

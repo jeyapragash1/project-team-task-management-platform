@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -83,10 +84,12 @@ export function TopNav({ onOpenMobileSidebar }: { onOpenMobileSidebar: () => voi
             </span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>
-              <span className="block truncate font-medium text-foreground">{user?.name ?? "Authenticated User"}</span>
-              <span className="block truncate text-muted-foreground">{user?.email}</span>
-            </DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>
+                <span className="block truncate font-medium text-foreground">{user?.name ?? "Authenticated User"}</span>
+                <span className="block truncate text-muted-foreground">{user?.email}</span>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <UserCircle className="size-4" aria-hidden="true" />
@@ -107,5 +110,6 @@ export function TopNav({ onOpenMobileSidebar }: { onOpenMobileSidebar: () => voi
     </header>
   );
 }
+
 
 

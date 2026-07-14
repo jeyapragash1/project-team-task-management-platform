@@ -35,7 +35,7 @@ function initials(name?: string | null) {
 }
 
 function roleNames(user: User) {
-  return user.roles?.map((role) => role.name) ?? [];
+  return user.roles?.map((role) => (typeof role === "string" ? role : role.name)) ?? [];
 }
 
 export function ProfilePage() {
@@ -230,4 +230,5 @@ function ProfileSkeleton() {
 function ProfileError({ message, onRetry }: { message: string; onRetry: () => void }) {
   return <div className="border border-destructive/30 bg-destructive/10 p-4"><p className="text-sm font-medium text-destructive">Unable to load profile</p><p className="mt-1 text-xs text-muted-foreground">{message}</p><Button type="button" variant="outline" className="mt-3" onClick={onRetry}>Retry</Button></div>;
 }
+
 

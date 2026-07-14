@@ -1,0 +1,24 @@
+﻿name: Feature Request
+description: Suggest an improvement within project scope
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the requested improvement.
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Value
+      description: Explain who benefits and why.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope Notes
+      description: Mention affected modules, APIs, or UI screens.

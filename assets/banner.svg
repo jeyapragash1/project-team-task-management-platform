@@ -1,0 +1,10 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="Project Team Task Management Platform banner">
+  <rect width="1200" height="360" fill="#0f172a"/>
+  <rect x="48" y="48" width="1104" height="264" fill="#111827" stroke="#334155"/>
+  <text x="90" y="145" fill="#f8fafc" font-family="Arial, sans-serif" font-size="42" font-weight="700">Project and Team Task Management Platform</text>
+  <text x="90" y="198" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="22">Laravel REST API • Next.js Frontend • PostgreSQL • Role-Based Access Control</text>
+  <g transform="translate(90 230)">
+    <rect width="150" height="42" fill="#2563eb"/>
+    <text x="22" y="28" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="700">Portfolio Ready</text>
+  </g>
+</svg>

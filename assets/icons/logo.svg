@@ -1,0 +1,6 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Project task platform logo">
+  <rect width="128" height="128" rx="18" fill="#111827"/>
+  <path d="M34 38h60v12H34zM34 58h42v12H34zM34 78h60v12H34z" fill="#f8fafc"/>
+  <circle cx="96" cy="64" r="18" fill="#2563eb"/>
+  <path d="M88 64l6 6 12-14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

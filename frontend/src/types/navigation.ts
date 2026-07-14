@@ -5,4 +5,5 @@ export type NavigationItem = {
   href: string;
   icon: LucideIcon;
   permissions?: string[];
+  roles?: string[];
 };
