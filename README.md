@@ -248,23 +248,41 @@ Password: Password@123
 
 ## Screenshots
 
-Browser screenshot capture was attempted, but the available browser runtime could not write image files into the repository. Placeholder sections are provided below; add real screenshots to `assets/screenshots/` when capturing manually.
+The repository includes real application screenshots in `assets/screenshots/`. The gallery below follows the main product workflow and includes role-specific, dialog, dark-mode, and mobile states.
 
-| Page | Screenshot |
+| Area | Screenshot |
 | --- | --- |
-| Login | [assets/screenshots/login.png](assets/screenshots/login.png) |
-| Dashboard | [assets/screenshots/dashboard.png](assets/screenshots/dashboard.png) |
-| Users | [assets/screenshots/users.png](assets/screenshots/users.png) |
-| Roles | [assets/screenshots/roles.png](assets/screenshots/roles.png) |
-| Projects | [assets/screenshots/projects.png](assets/screenshots/projects.png) |
-| Project Members | [assets/screenshots/project-members.png](assets/screenshots/project-members.png) |
-| Tasks | [assets/screenshots/tasks.png](assets/screenshots/tasks.png) |
-| Task Comments | [assets/screenshots/task-comments.png](assets/screenshots/task-comments.png) |
-| Reports | [assets/screenshots/reports.png](assets/screenshots/reports.png) |
-| Profile | [assets/screenshots/profile.png](assets/screenshots/profile.png) |
-| Settings | [assets/screenshots/settings.png](assets/screenshots/settings.png) |
-
-
+| Login | ![Login page](assets/screenshots/login-page.png) |
+| Admin dashboard | ![Admin dashboard overview](assets/screenshots/dashboard-overview-admin.png) |
+| User management | ![Users management](assets/screenshots/users-management.png) |
+| Create user | ![Create user dialog](assets/screenshots/create-user-dialog.png) |
+| Roles and permissions | ![Roles and permissions management](assets/screenshots/roles-permissions-management.png) |
+| Role details | ![Role details dialog](assets/screenshots/role-details-dialog.png) |
+| Assign permissions | ![Assign permissions dialog](assets/screenshots/assign-permissions-dialog.png) |
+| Remove permissions | ![Remove permissions dialog](assets/screenshots/remove-permissions-dialog.png) |
+| Create role | ![Create role dialog](assets/screenshots/create-role-dialog.png) |
+| Project members | ![Project members page](assets/screenshots/project-members-page.png) |
+| Add project member | ![Add project member dialog](assets/screenshots/add-project-member-dialog.png) |
+| Project member details | ![Project member details dialog](assets/screenshots/project-member-details-dialog.png) |
+| Remove project member | ![Remove project member dialog](assets/screenshots/remove-project-member-dialog.png) |
+| Reports dashboard | ![Reports dashboard](assets/screenshots/reports-dashboard.png) |
+| Task report details | ![Task report details](assets/screenshots/task-report-details.png) |
+| Workload report details | ![Workload report details](assets/screenshots/workload-report-details.png) |
+| Profile | ![Admin profile page](assets/screenshots/profile-page-admin.png) |
+| Change password | ![Change password form](assets/screenshots/change-password-form.png) |
+| Settings | ![Settings page](assets/screenshots/settings-page.png) |
+| Dark mode dashboard | ![Dashboard dark mode](assets/screenshots/dashboard-dark-mode.png) |
+| User menu | ![User menu dropdown](assets/screenshots/user-menu-dropdown.png) |
+| Team member dashboard | ![Team member dashboard](assets/screenshots/dashboard-team-member.png) |
+| Team member profile | ![Team member profile page](assets/screenshots/profile-page-team-member.png) |
+| Team member settings | ![Team member settings page](assets/screenshots/settings-page-team-member.png) |
+| Project manager dashboard | ![Project manager dashboard](assets/screenshots/dashboard-project-manager.png) |
+| Project members empty state | ![Project members empty state](assets/screenshots/project-members-empty-state.png) |
+| Project manager reports | ![Project manager reports](assets/screenshots/reports-project-manager.png) |
+| Project manager profile | ![Project manager profile page](assets/screenshots/profile-page-project-manager.png) |
+| Project manager settings | ![Project manager settings page](assets/screenshots/settings-page-project-manager.png) |
+| Mobile dashboard | ![Mobile dashboard](assets/screenshots/mobile-dashboard.png) |
+| Mobile sidebar | ![Mobile sidebar navigation](assets/screenshots/mobile-sidebar-navigation.png) |
 ## CI/CD
 
 GitHub Actions verifies backend and frontend quality on pushes and pull requests to `main`.
@@ -301,5 +319,6 @@ This project is released under the [MIT License](LICENSE).
 - Kisho Jeyapragash
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
 
 
