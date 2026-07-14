@@ -44,6 +44,23 @@ function pendingTasks(statistics: DashboardStatistics): number {
   return Math.max((statistics.total_tasks ?? 0) - (statistics.completed_tasks ?? 0), 0);
 }
 
+function displayRoleLabel(
+  roles: Array<{ name?: string } | string> | undefined,
+  fallback: string,
+): string {
+  const firstRole = roles?.[0];
+
+  if (typeof firstRole === "string" && firstRole.trim().length > 0) {
+    return firstRole;
+  }
+
+  if (typeof firstRole === "object" && firstRole?.name?.trim()) {
+    return firstRole.name;
+  }
+
+  return fallback;
+}
+
 export function DashboardPage() {
   const dashboardQuery = useDashboard();
   const { data: user } = useCurrentUser();
@@ -71,7 +88,7 @@ export function DashboardPage() {
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-            <Badge variant="outline">{dashboardQuery.data.role}</Badge>
+            <Badge variant="outline">{displayRoleLabel(user?.roles, dashboardQuery.data.role)}</Badge>
           </div>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
             Monitor project progress, team workload, upcoming work, and recent updates from your workspace.
@@ -394,5 +411,7 @@ function humanizeAction(action: string): string {
 function scopeLabel(scope: string): string {
   return humanizeAction(scope);
 }
+
+
 
 
