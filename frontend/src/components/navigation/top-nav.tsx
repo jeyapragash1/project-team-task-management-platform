@@ -38,7 +38,7 @@ export function TopNav({ onOpenMobileSidebar }: { onOpenMobileSidebar: () => voi
   const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-3 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-4 lg:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-3 backdrop-blur supports-[backdrop-filter]:bg-background/85 sm:px-4 lg:px-6">
       <Button
         type="button"
         variant="outline"
@@ -107,3 +107,5 @@ export function TopNav({ onOpenMobileSidebar }: { onOpenMobileSidebar: () => voi
     </header>
   );
 }
+
+

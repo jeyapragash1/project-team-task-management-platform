@@ -141,3 +141,50 @@ a {
     @apply font-mono;
   }
 }
+@layer base {
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  body {
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+
+  select {
+    color-scheme: light dark;
+  }
+}
+
+@layer utilities {
+  .ui-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 40%, transparent) transparent;
+  }
+
+  .ui-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .ui-scrollbar::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    background: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+    background-clip: padding-box;
+  }
+
+  .ui-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 
 import { APP_NAME } from "@/constants";
@@ -34,9 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-mono", jetbrainsMono.variable)}>
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
+      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
 }
+

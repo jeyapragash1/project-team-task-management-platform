@@ -41,7 +41,7 @@ export function SidebarNav({
         ) : null}
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto px-2 py-3">
+      <nav className="ui-scrollbar flex-1 space-y-1 overflow-y-auto px-2 py-3">
         {sidebarNavigation.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -53,10 +53,10 @@ export function SidebarNav({
               onClick={onNavigate}
               title={collapsed ? item.title : undefined}
               className={cn(
-                "group flex h-9 items-center gap-3 border border-transparent px-2 text-xs font-medium transition-colors",
+                "group flex h-9 items-center gap-3 border border-transparent px-2 text-xs font-medium transition-colors focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50",
                 collapsed ? "justify-center" : "justify-start",
                 active
-                  ? "border-sidebar-border bg-sidebar-primary text-sidebar-primary-foreground"
+                  ? "border-primary/25 bg-primary/10 text-foreground shadow-sm dark:border-primary/35 dark:bg-primary/20 dark:text-sidebar-foreground"
                   : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
               )}
             >
@@ -69,3 +69,6 @@ export function SidebarNav({
     </div>
   );
 }
+
+
+
